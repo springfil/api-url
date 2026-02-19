@@ -22,6 +22,7 @@
 <style scoped>
 .layout {
     display: flex;
+    width: 100%;
 }
 
 .sidebar {
@@ -42,5 +43,7 @@
 .content {
     flex: 1;
     padding: 20px;
+    min-width: 0;
+    overflow-wrap: break-word;
 }
 </style>
