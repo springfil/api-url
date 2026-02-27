@@ -9,11 +9,11 @@
         </div>
 
         <div class="card__body">
-            <NuxtLink :to="`/post/${post.id}`" class="card__title-link">
-                <h3 class="card__title">{{ post.title }}</h3>
+            <NuxtLink :to="`/post/${id}`" class="card__title-link">
+                <h3 class="card__title">{{ title }}</h3>
             </NuxtLink>
             <p class="card__description">
-                {{ post.content }}
+                {{ content }}
             </p>
 
             <div class="card__body-footer footer">
@@ -24,7 +24,7 @@
                             class="footer__vote-icon"
                             size="18px"
                         />
-                        <span class="footer__vote-count">{{ post.likes }}</span>
+                        <span class="footer__vote-count">{{ likes }}</span>
                     </button>
                     <button
                         class="footer__vote-button footer__vote-button--down"
@@ -34,9 +34,7 @@
                             class="footer__vote-icon"
                             size="18px"
                         />
-                        <span class="footer__vote-count">{{
-                            post.dislikes
-                        }}</span>
+                        <span class="footer__vote-count">{{ dislikes }}</span>
                     </button>
                 </div>
 
@@ -66,14 +64,13 @@
 <script lang="ts" setup>
 import type { Post } from "~/interfaces/product.interface";
 
-const post = defineProps<Post>();
+defineProps<Post>();
 </script>
 
 <style scoped>
 .card {
     padding-top: 36px;
     max-width: 700px;
-    margin: 0 auto;
     background: #fff;
 }
 
