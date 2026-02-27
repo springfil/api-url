@@ -6,11 +6,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useApi } from "~/composables/useApi";
 import type { Post } from "~/interfaces/product.interface";
 
-const config = useRuntimeConfig();
+const { API_URL } = useApi();
 const route = useRoute();
-const API_URL = config.public.apiurl;
 
 const postId = route.params.id;
 
