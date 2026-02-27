@@ -19,9 +19,9 @@
             </div>
         </div>
         <PostCard
-            v-for="post in postsData?.posts"
+            v-for="(post, i) in postsData?.posts"
             :key="post.id"
-            v-bind="post"
+            v-model:post="postsData.posts[i]"
         />
         <div class="pagination__menu">
             <PaginationMenu

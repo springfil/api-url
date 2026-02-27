@@ -9,32 +9,40 @@
         </div>
 
         <div class="card__body">
-            <NuxtLink :to="`/post/${id}`" class="card__title-link">
-                <h3 class="card__title">{{ title }}</h3>
+            <NuxtLink :to="`/post/${post.id}`" class="card__title-link">
+                <h3 class="card__title">{{ post.title }}</h3>
             </NuxtLink>
             <p class="card__description">
-                {{ content }}
+                {{ post.content }}
             </p>
 
             <div class="card__body-footer footer">
                 <div class="footer__votes">
-                    <button class="footer__vote-button footer__vote-button--up">
+                    <button
+                        class="footer__vote-button footer__vote-button--up"
+                        @click="handleLike"
+                    >
                         <icon
                             name="icons:like"
                             class="footer__vote-icon"
+                            :class="{ active: isLikeActive }"
                             size="18px"
                         />
-                        <span class="footer__vote-count">{{ likes }}</span>
+                        <span class="footer__vote-count">{{ post.likes }}</span>
                     </button>
                     <button
                         class="footer__vote-button footer__vote-button--down"
+                        @click="handleDislike"
                     >
                         <icon
                             name="icons:dislike"
                             class="footer__vote-icon"
+                            :class="{ active: isDislikeActive }"
                             size="18px"
                         />
-                        <span class="footer__vote-count">{{ dislikes }}</span>
+                        <span class="footer__vote-count">{{
+                            post.dislikes
+                        }}</span>
                     </button>
                 </div>
 
@@ -64,7 +72,30 @@
 <script lang="ts" setup>
 import type { Post } from "~/interfaces/product.interface";
 
-defineProps<Post>();
+const post = defineModel<Post>("post", { required: true });
+
+const votesStore = useVotesStore();
+
+const handleLike = async () => {
+    try {
+        const updatedPost = await votesStore.like(post.value.id);
+        post.value = updatedPost;
+    } catch (error) {
+        console.error("Ошибка при голосовании:", error);
+    }
+};
+
+const handleDislike = async () => {
+    try {
+        const updatedPost = await votesStore.dislike(post.value.id);
+        post.value = updatedPost;
+    } catch (error) {
+        console.error("Ошибка при голосовании:", error);
+    }
+};
+
+const isLikeActive = computed(() => post.value.likes > 0);
+const isDislikeActive = computed(() => post.value.dislikes > 0);
 </script>
 
 <style scoped>
@@ -137,9 +168,18 @@ defineProps<Post>();
     padding: 0;
     font-size: 14px;
     font-weight: 400;
-    color: #1f2937;
+    color: var(--color-gray);
     cursor: pointer;
     transition: color 0.2s;
+}
+
+.footer__vote-button--up .active,
+.footer__vote-button--down .active {
+    color: var(--color-black);
+}
+
+.footer__vote-count {
+    color: var(--color-black);
 }
 
 .footer__vote-button--up:hover {
