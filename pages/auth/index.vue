@@ -44,7 +44,8 @@ const onLoginClick = async () => {
                 password: password.value,
             },
         });
-        authStore.setToken(data);
+        authStore.setToken(data.token);
+        authStore.setUserData(data.user);
         navigateTo("/");
     } catch (error) {
         alert("Неверные данные");
