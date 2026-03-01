@@ -19,9 +19,9 @@
             </div>
         </div>
         <PostCard
-            v-for="(post, i) in postsData?.posts"
-            :key="post.id"
-            v-model:post="postsData.posts[i]"
+            v-for="(post, index) in postsData?.posts"
+            :key="`post-card-${post.id}`"
+            v-model:post="postsData.posts[index]"
         />
         <div class="pagination__menu">
             <PaginationMenu
@@ -36,6 +36,11 @@
 <script lang="ts" setup>
 import { useApi } from "~/composables/useApi";
 import type { GetPostsResponse } from "~/interfaces/product.interface";
+
+useSeoMeta({
+    title: "Главная",
+    description: "Главная страница VoteApp приложения с постами",
+});
 
 const { API_URL } = useApi();
 
