@@ -18,11 +18,13 @@
                 </NuxtLink>
             </div>
         </div>
-        <PostCard
-            v-for="(post, index) in postsData?.posts"
-            :key="`post-card-${post.id}`"
-            v-model:post="postsData.posts[index]"
-        />
+        <template v-if="postsData">
+            <PostCard
+                v-for="(post, index) in postsData.posts"
+                :key="`post-card-${post.id}`"
+                v-model:post="postsData.posts[index]"
+            />
+        </template>
         <div class="pagination__menu">
             <PaginationMenu
                 v-model="page"
