@@ -29,6 +29,11 @@
 <script setup lang="ts">
 import type { LoginResponse } from "~/interfaces/auth.interface";
 
+useSeoMeta({
+    title: "Вход",
+    description: "Страница входа в аккаунт VoteApp приложения",
+});
+
 const email = ref<string | undefined>();
 const password = ref<string | undefined>();
 
