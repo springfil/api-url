@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import { useApi } from "~/composables/useApi";
-import type { Post } from "~/interfaces/product.interface";
+import type { Post } from "~/interfaces/post.interface";
 
 const { API_URL } = useApi();
 const route = useRoute();

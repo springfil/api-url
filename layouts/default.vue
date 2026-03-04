@@ -5,7 +5,7 @@
                 <NuxtLink to="/">
                     <Icon name="icons:home" size="24px" />
                 </NuxtLink>
-                <NuxtLink to="/auth">
+                <NuxtLink @click="onLogOut" to="/auth">
                     <Icon name="icons:un-auth" size="24px" />
                 </NuxtLink>
             </nav>
@@ -17,11 +17,17 @@
     </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const authStore = useAuthStore();
+const onLogOut = () => {
+    authStore.clearToken();
+};
+</script>
 
 <style scoped>
 .layout {
     display: flex;
+    height: 100vh;
     width: 100%;
 }
 
