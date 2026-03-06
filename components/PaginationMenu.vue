@@ -51,7 +51,7 @@ function changePage(page: number) {
     align-items: center;
     justify-content: flex-start;
     gap: 16px;
-    margin-top: 32px;
+    /* margin-top: 32px; */
     padding: 20px 0;
 }
 

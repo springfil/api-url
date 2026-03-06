@@ -47,13 +47,15 @@
                 </div>
 
                 <div class="footer__actions">
-                    <icon
-                        name="icons:basket"
-                        class="footer__action-icon"
-                        size="16px"
-                    />
+                    <button class="button-icon" @click="onDeleteClick">
+                        <icon
+                            name="icons:basket"
+                            class="footer__action-icon"
+                            size="16px"
+                        />
+                    </button>
                     <nuxt-link
-                        to="/post/edit"
+                        :to="`/post/edit/${post.id}`"
                         class="footer__action footer__action--edit"
                     >
                         <icon
@@ -70,7 +72,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Post } from "~/interfaces/product.interface";
+import type { Post } from "~/interfaces/post.interface";
 
 const post = defineModel<Post>("post", { required: true });
 
@@ -96,6 +98,21 @@ const handleDislike = async () => {
 
 const isLikeActive = computed(() => post.value.likes > 0);
 const isDislikeActive = computed(() => post.value.dislikes > 0);
+
+const postsApi = usePostsApi();
+const emit = defineEmits(["delete"]);
+
+const onDeleteClick = async () => {
+    try {
+        const success = await postsApi.remove(post.value.id);
+
+        if (success) {
+            emit("delete", post.value.id);
+        }
+    } catch (error) {
+        console.error("Ошибка при удалении:", error);
+    }
+};
 </script>
 
 <style scoped>
@@ -217,5 +234,12 @@ const isDislikeActive = computed(() => post.value.dislikes > 0);
 .footer__action--delete:hover {
     background: #fee2e2;
     border-color: #dc2626;
+}
+
+.button-icon {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 </style>

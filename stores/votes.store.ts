@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { Post } from "~/interfaces/product.interface";
+import type { Post } from "~/interfaces/post.interface";
 
 export const useVotesStore = defineStore(
     "votes",

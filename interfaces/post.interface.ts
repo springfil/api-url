@@ -17,3 +17,8 @@ export interface GetPostsResponse {
     page_size: number;
     total_pages: number;
 }
+
+export interface EditPostBody {
+    title: Post["title"];
+    content: Post["content"];
+}

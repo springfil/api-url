@@ -1,5 +1,11 @@
 <template>
     <div class="wrapper">
+        <div class="create" v-if="!!authStore.token">
+            <NuxtLink to="/post/create">
+                <Icon name="icons:add" size="34px" />
+                <span>Добавить новое обновление для голосования</span>
+            </NuxtLink>
+        </div>
         <div class="filter">
             <div class="filter__item">
                 <NuxtLink
@@ -18,13 +24,14 @@
                 </NuxtLink>
             </div>
         </div>
-        <template v-if="postsData">
+        <div class="posts-list" v-if="postsData">
             <PostCard
                 v-for="(post, index) in postsData.posts"
                 :key="`post-card-${post.id}`"
                 v-model:post="postsData.posts[index]"
+                @delete="onPostDeleted"
             />
-        </template>
+        </div>
         <div class="pagination__menu">
             <PaginationMenu
                 v-model="page"
@@ -37,7 +44,7 @@
 
 <script lang="ts" setup>
 import { useApi } from "~/composables/useApi";
-import type { GetPostsResponse } from "~/interfaces/product.interface";
+import type { GetPostsResponse } from "~/interfaces/post.interface";
 
 useSeoMeta({
     title: "Главная",
@@ -48,6 +55,7 @@ const { API_URL } = useApi();
 
 const route = useRoute();
 const router = useRouter();
+const authStore = useAuthStore();
 
 const page = ref<number>(parseInt(route.query.page?.toString() ?? "1") || 1);
 const pageSize = ref<number>(
@@ -74,12 +82,14 @@ const query = computed(() => ({
     sort: route.query.sort || "date",
 }));
 
-const { data: postsData } = await useFetch<GetPostsResponse>(
+const { data: postsData, refresh } = await useFetch<GetPostsResponse>(
     `${API_URL}/posts`,
     {
         query,
     },
 );
+
+const onPostDeleted = () => refresh();
 </script>
 
 <style scoped>
@@ -88,6 +98,20 @@ const { data: postsData } = await useFetch<GetPostsResponse>(
     flex-direction: column;
     height: 100%;
     margin-left: 136px;
+    overflow: hidden;
+}
+
+.create a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+    text-decoration: none;
+    color: var(--color-dark-gray);
+}
+
+.create a:hover {
+    color: var(--color-dark-gray-2);
 }
 
 .filter {
@@ -116,6 +140,11 @@ const { data: postsData } = await useFetch<GetPostsResponse>(
 
 .filter__item a.active {
     color: var(--color-black-soft);
+}
+
+.posts-list {
+    max-height: 700px;
+    overflow-y: auto;
 }
 
 .pagination__menu {
