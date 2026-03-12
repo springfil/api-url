@@ -144,7 +144,7 @@ const onPostDeleted = () => refresh();
 }
 
 .posts-list {
-    max-height: 700px;
+    flex: 1;
     overflow-y: auto;
 }
 

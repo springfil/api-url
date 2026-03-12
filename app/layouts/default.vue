@@ -52,5 +52,6 @@ const onLogOut = () => {
     padding: 20px;
     min-width: 0;
     overflow-wrap: break-word;
+    overflow: hidden;
 }
 </style>
