@@ -86,6 +86,7 @@ const { data: postsData, refresh } = await useFetch<GetPostsResponse>(
     `${API_URL}/posts`,
     {
         query,
+        deep: true,
     },
 );
 

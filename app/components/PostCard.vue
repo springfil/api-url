@@ -4,7 +4,7 @@
             <div>
                 <Icon name="icons:basket" size="24px" class="card__icon" />
             </div>
-            <span class="card__company-name">PurpleSchool</span>
+            <span class="card__company-name">VoteApp</span>
             <span class="card__date">4 дня назад</span>
         </div>
 
@@ -22,7 +22,7 @@
                         class="footer__vote-button footer__vote-button--up"
                         @click="handleLike"
                     >
-                        <icon
+                        <Icon
                             name="icons:like"
                             class="footer__vote-icon"
                             :class="{ active: isLikeActive }"
@@ -34,7 +34,7 @@
                         class="footer__vote-button footer__vote-button--down"
                         @click="handleDislike"
                     >
-                        <icon
+                        <Icon
                             name="icons:dislike"
                             class="footer__vote-icon"
                             :class="{ active: isDislikeActive }"
@@ -48,23 +48,23 @@
 
                 <div class="footer__actions">
                     <button class="button-icon" @click="onDeleteClick">
-                        <icon
+                        <Icon
                             name="icons:basket"
                             class="footer__action-icon"
                             size="16px"
                         />
                     </button>
-                    <nuxt-link
+                    <NuxtLink
                         :to="`/post/edit/${post.id}`"
                         class="footer__action footer__action--edit"
                     >
-                        <icon
+                        <Icon
                             name="icons:editing"
                             class="footer__action-icon"
                             size="16px"
                         />
                         <span>Изменить</span>
-                    </nuxt-link>
+                    </NuxtLink>
                 </div>
             </div>
         </div>

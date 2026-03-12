@@ -14,7 +14,7 @@ const route = useRoute();
 
 const postId = route.params.id;
 
-const { data: postData } = await useFetch<Post>(API_URL + `/posts/${postId}`);
+const { data: postData } = await useFetch<Post>(API_URL + `/posts/${postId}`, { deep: true });
 
 const contentDescription = computed(() => {
     if (!postData.value) return;

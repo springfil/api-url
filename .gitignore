@@ -24,3 +24,6 @@ logs
 !.env.example
 
 package-lock.json
+.claude
+CLAUDE.md
+interview-prep.md

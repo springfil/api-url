@@ -5,7 +5,7 @@
                 <NuxtLink to="/">
                     <Icon name="icons:home" size="24px" />
                 </NuxtLink>
-                <NuxtLink @click="onLogOut" to="/auth">
+                <NuxtLink @click.prevent="onLogOut">
                     <Icon name="icons:un-auth" size="24px" />
                 </NuxtLink>
             </nav>
@@ -21,6 +21,7 @@
 const authStore = useAuthStore();
 const onLogOut = () => {
     authStore.clearToken();
+    navigateTo("/auth");
 };
 </script>
 
